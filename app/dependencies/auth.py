@@ -14,7 +14,10 @@ async def get_current_user(session: SessionDep, token: str = Depends(oauth2_sche
     sub = payload.get("sub")
     if sub is None:
         raise InvalidTokenException(detail="Invalid token payload")
-    user_id = int(sub)
+    try:
+        user_id = int(sub)
+    except (TypeError, ValueError):
+        raise InvalidTokenException(detail="Invalid token payload")
     
     user = await get_user_by_id(user_id, session)
     return user
