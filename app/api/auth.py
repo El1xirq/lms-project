@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status, Depends, Response, Request
 from fastapi.security import OAuth2PasswordRequestForm
 
-from app.schemas.auth_schema import RegistrationData, TokenResponse, RegistrationRequest
+from app.schemas.auth_schema import RegistrationData, TokenResponse, RegistrationRequest, UserResponse
 from app.crud.user import create_user, get_user_by_email, get_user_by_id
 from app.utils.security import get_password_hash, create_access_token, create_refresh_token, verify_password, verify_token
 from app.database import SessionDep
@@ -90,7 +90,7 @@ async def logout_user(response: Response):
     return None
     
     
-@router.get('/me')
+@router.get('/me', response_model=UserResponse)
 async def get_me(user = Depends(get_current_user)):
     return user
 
