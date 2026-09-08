@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, EmailStr, field_validator
+from pydantic import BaseModel, Field, EmailStr, field_validator, ConfigDict
 from typing import Any
 
 
@@ -52,9 +52,10 @@ class UpdateUserSchema(BaseModel):
     
 
 class UserResponse(BaseModel):
-    id: str
+    id: int
     email: EmailStr
     role: str
-    is_active: str
-    
+    is_active: bool
+
+    model_config = ConfigDict(from_attributes=True)
 
