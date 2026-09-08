@@ -51,4 +51,10 @@ class UpdateUserSchema(BaseModel):
         return v
     
 
+class UserResponse(BaseModel):
+    id: str
+    email: EmailStr
+    role: str
+    is_active: str
+    
 
